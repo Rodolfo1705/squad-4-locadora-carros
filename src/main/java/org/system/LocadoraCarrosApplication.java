@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "org.system.repository")
-@EntityScan(basePackages = "org.system.model")
+@EntityScan(basePackages = "org.system.entity")
 public class LocadoraCarrosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LocadoraCarrosApplication.class, args);

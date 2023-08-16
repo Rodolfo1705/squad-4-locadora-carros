@@ -1,4 +1,4 @@
-package org.system.model;
+package org.system.entity;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ import java.util.Date;
 public class Aluguel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private Calendar dataPedido;
     private Date dataEntrega;
     private Date dataDevolução;

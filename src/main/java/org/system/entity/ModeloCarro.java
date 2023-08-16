@@ -1,4 +1,4 @@
-package org.system.model;
+package org.system.entity;
 
 public class ModeloCarro {
     private String descricao;

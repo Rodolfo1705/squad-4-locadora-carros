@@ -1,4 +1,4 @@
-package org.system.model;
+package org.system.entity;
 
 public enum Categoria {
     HATCH_COMPACTO,
