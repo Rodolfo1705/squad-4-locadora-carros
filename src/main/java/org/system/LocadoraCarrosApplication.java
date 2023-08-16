@@ -1,4 +1,4 @@
-package org.system.locadoracarros;
+package org.system.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
