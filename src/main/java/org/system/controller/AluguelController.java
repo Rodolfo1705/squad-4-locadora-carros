@@ -27,9 +27,9 @@ public class AluguelController {
 
         if (!alugueis.isEmpty()) {
             return ResponseEntity.ok(alugueis);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @PostMapping

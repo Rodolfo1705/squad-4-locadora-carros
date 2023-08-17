@@ -22,9 +22,9 @@ public class CarroController {
 
         if (!carros.isEmpty()) {
             return ResponseEntity.ok(carros);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @GetMapping(value = "/{id}")
@@ -34,9 +34,9 @@ public class CarroController {
         if (carroOptional.isPresent()) {
             Carro carro = carroOptional.get();
             return ResponseEntity.ok(carro);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+
+        return ResponseEntity.notFound().build();
     }
 
 
