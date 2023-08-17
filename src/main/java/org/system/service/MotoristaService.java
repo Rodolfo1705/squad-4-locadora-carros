@@ -2,6 +2,9 @@ package org.system.service;
 
 import org.system.entity.Motorista;
 
+import java.util.List;
+
 public interface MotoristaService {
-    public void addMotorista(Motorista motorista);
+    public List<Motorista> findAll();
+    public Motorista save(Motorista motorista);
 }

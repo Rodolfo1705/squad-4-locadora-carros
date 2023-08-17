@@ -2,6 +2,7 @@ package org.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.system.entity.Motorista;
 import org.system.repository.MotoristaRepository;
 
@@ -9,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class MotoristaServiceImpl implements MotoristaService{
+public class MotoristaServiceImpl implements MotoristaService {
     @Autowired
     private MotoristaRepository motoristaRepository;
 
@@ -17,11 +18,11 @@ public class MotoristaServiceImpl implements MotoristaService{
         return motoristaRepository.findAll();
     }
 
-    @Transactional
+
     public void addMotorista(Motorista motorista) {
         motoristaRepository.saveAndFlush(motorista);
     }
-
+    @Transactional
     public Motorista save(Motorista motorista) {
         try {
             if (!isCPF(motorista.getCpf())){
@@ -31,6 +32,16 @@ public class MotoristaServiceImpl implements MotoristaService{
             if (!isCNH(motorista.getNumeroCNH())) {
                 throw new IllegalArgumentException("CNH inválida");
             }
+
+            /*if (existCPF(motorista.getCpf())) {
+                throw new IllegalArgumentException("CPF já existente no sistema!");
+            }
+            if (existCNH(motorista.getCpf())) {
+                throw new IllegalArgumentException("CNH já existente no sistema!");
+            }
+            if (existEmail(motorista.getCpf())) {
+                throw new IllegalArgumentException("Email já existente no sistema!");
+            }*/
 
             motorista.setCpf(formatCPF(motorista.getCpf()));
 
@@ -75,7 +86,15 @@ public class MotoristaServiceImpl implements MotoristaService{
                 CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
     }
 
-    /*public Motorista findByEmail(@PathVariable String email){
-        return motoristaRepository.findByEmail(email).get();
+    /*private boolean existCPF(String CPF){
+        return motoristaRepository.existsCPF(CPF);
+    }
+
+    private boolean existCNH(String CNH){
+        return motoristaRepository.existsCNH(CNH);
+    }
+
+    public Motorista findByEmail(@PathVariable String email){
+        return motoristaRepository.findByEmail(email);
     }*/
 }

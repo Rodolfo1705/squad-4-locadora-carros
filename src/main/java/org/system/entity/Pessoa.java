@@ -2,7 +2,6 @@ package org.system.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
@@ -10,7 +9,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "pessoas")
+@Table(name = "pessoa")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_pessoa", discriminatorType = DiscriminatorType.STRING)
 @NoArgsConstructor

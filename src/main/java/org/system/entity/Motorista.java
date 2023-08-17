@@ -2,7 +2,6 @@ package org.system.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
@@ -21,8 +20,6 @@ public class Motorista extends Pessoa  {
         super(nome, dataNascimento, cpf, sexo, email);
         this.numeroCNH = numeroCNH;
     }
-
-
 
     public String getNumeroCNH() {
         return numeroCNH;
