@@ -41,10 +41,4 @@ public class MotoristaController {
             return ResponseEntity.ok(motorista);
         }
     }*/
-
-    //new Motorista("Maria", data, "02103205422", Sexo.FEMININO, "maria@gmail.com", "032555");
-    /*public ResponseEntity<List<Motorista>> findAll() {
-        List<Motorista> motoristas = motoristaService.findAll();
-        return ResponseEntity.ok().body(motoristas);
-    }*/
 }

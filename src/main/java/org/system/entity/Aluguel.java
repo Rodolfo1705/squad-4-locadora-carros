@@ -21,18 +21,18 @@ public class Aluguel implements Serializable {
     private Calendar dataPedido;
     @Column(name = "dataEntrega")
     private Date dataEntrega;
-    @Column(name = "dataDevolução")
-    private Date dataDevolução;
+    @Column(name = "dataDevolucao")
+    private Date dataDevolucao;
     @Column(name = "valorTotal")
     private BigDecimal valorTotal;
     @OneToOne
     @PrimaryKeyJoinColumn
     private ApoliceSeguro apoliceSeguro;
 
-    public Aluguel(Calendar dataPedido, Date dataEntrega, Date dataDevolução, BigDecimal valorTotal, ApoliceSeguro apoliceSeguro) {
+    public Aluguel(Calendar dataPedido, Date dataEntrega, Date dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apoliceSeguro) {
         this.dataPedido = dataPedido;
         this.dataEntrega = dataEntrega;
-        this.dataDevolução = dataDevolução;
+        this.dataDevolucao = dataDevolucao;
         this.valorTotal = valorTotal;
         this.apoliceSeguro = apoliceSeguro;
     }

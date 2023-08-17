@@ -47,7 +47,7 @@ public class MotoristaServiceImpl implements MotoristaService {
 
             return motoristaRepository.save(motorista);
         } catch (Exception e) {
-            throw new RuntimeException( e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 

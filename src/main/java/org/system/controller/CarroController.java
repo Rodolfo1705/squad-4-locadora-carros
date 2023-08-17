@@ -45,7 +45,7 @@ public class CarroController {
         try {
             Carro newCarro = carroService.save(carro);
             return ResponseEntity.ok("Carro cadastrado com sucesso!");
-        } catch (Exception e) {
+        } catch (RuntimeException  e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao cadastrar carro: " + e.getMessage());
         }

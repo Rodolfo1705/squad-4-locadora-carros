@@ -15,6 +15,7 @@ import java.util.List;
 public class Carro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true)
     private Long id;
     @Column(name = "placa", unique = true)
     private String placa;
