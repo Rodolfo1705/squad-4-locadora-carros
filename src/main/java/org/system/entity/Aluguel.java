@@ -28,6 +28,9 @@ public class Aluguel implements Serializable {
     @OneToOne
     @PrimaryKeyJoinColumn
     private ApoliceSeguro apoliceSeguro;
+    @ManyToOne
+    @JoinColumn(name = "carro_id")
+    private Carro carro;
 
     public Aluguel(Calendar dataPedido, Date dataEntrega, Date dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apoliceSeguro) {
         this.dataPedido = dataPedido;

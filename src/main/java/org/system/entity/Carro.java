@@ -31,6 +31,8 @@ public class    Carro {
     @ManyToOne
     @JoinColumn(name = "modelo_id")
     private ModeloCarro modeloCarro;
+    @OneToMany
+    private List<Aluguel> alugueis;
 
     public Carro(Long id, String placa, String chassi, String cor, BigDecimal valorDiaria, List<Acessorio> acessorios, ModeloCarro modeloCarro) {
         this.id = id;
