@@ -10,9 +10,9 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "carro")
+@Table(name = "carros")
 @NoArgsConstructor
-public class Carro {
+public class    Carro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)

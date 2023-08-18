@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Entity
-@Table(name = "aluguel")
+@Table(name = "alugueis")
 @Data
 @NoArgsConstructor
 public class Aluguel implements Serializable {

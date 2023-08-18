@@ -20,11 +20,7 @@ public class CarroController {
     public ResponseEntity<List<Carro>> findAll() {
         List<Carro> carros = carroService.findAll();
 
-        if (!carros.isEmpty()) {
             return ResponseEntity.ok(carros);
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @GetMapping(value = "/{id}")

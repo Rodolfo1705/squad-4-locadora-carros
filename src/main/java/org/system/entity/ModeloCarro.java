@@ -1,5 +1,6 @@
 package org.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +9,10 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "modelo")
+@Table(name = "modelos_carro")
 @NoArgsConstructor
 public class ModeloCarro {
     @Id
-    @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "descricao")
@@ -21,6 +21,7 @@ public class ModeloCarro {
     private List<Carro> carros;
     @ManyToOne
     @JoinColumn(name = "fabricante_id")
+    @JsonBackReference
     private Fabricante fabricante;
     @Column(name = "categoria")
     private Categoria categoria;

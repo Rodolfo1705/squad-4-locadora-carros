@@ -8,21 +8,20 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "fabricante")
+@Table(name = "fabricantes")
 @NoArgsConstructor
 public class Fabricante {
     @Id
-    @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "nome")
     private String nome;
     @OneToMany(mappedBy = "fabricante")
-    private List<ModeloCarro> modeloCarros;
+    private List<ModeloCarro> modelosCarro;
 
-    public Fabricante(Long id, String nome, List<ModeloCarro> modeloCarros) {
+    public Fabricante(Long id, String nome, List<ModeloCarro> modelosCarro) {
         this.id = id;
         this.nome = nome;
-        this.modeloCarros = modeloCarros;
+        this.modelosCarro = modelosCarro;
     }
 }
