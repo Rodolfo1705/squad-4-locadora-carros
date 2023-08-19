@@ -4,6 +4,7 @@
     import org.springframework.stereotype.Service;
     import org.system.entity.Aluguel;
     import org.system.repository.AluguelRepository;
+    import org.system.service.interfaces.AluguelService;
 
     import java.util.List;
 

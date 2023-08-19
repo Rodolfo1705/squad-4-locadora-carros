@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.system.entity.Fabricante;
 import org.system.repository.FabricanteRepository;
+import org.system.service.interfaces.FabricanteService;
 
 import java.util.List;
 @Service
-public class FabricanteServiceImpl implements FabricanteService{
+public class FabricanteServiceImpl implements FabricanteService {
     @Autowired
     private FabricanteRepository fabricanteRepository;
     @Override

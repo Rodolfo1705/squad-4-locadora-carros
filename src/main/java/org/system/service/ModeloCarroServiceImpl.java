@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.system.entity.ModeloCarro;
 import org.system.repository.ModeloCarroRepository;
+import org.system.service.interfaces.ModeloCarroService;
 
 import java.util.List;
 
 @Service
-public class ModeloCarroServiceImpl implements ModeloCarroService{
+public class ModeloCarroServiceImpl implements ModeloCarroService {
     @Autowired
     private ModeloCarroRepository modeloCarroRepository;
     @Override

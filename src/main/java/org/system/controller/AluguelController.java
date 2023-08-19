@@ -5,12 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.system.entity.Aluguel;
-import org.system.entity.Carro;
-import org.system.entity.Motorista;
-import org.system.repository.AluguelRepository;
-import org.system.service.AluguelService;
 import org.system.service.AluguelServiceImpl;
-import org.system.service.MotoristaServiceImpl;
 
 import java.util.List;
 

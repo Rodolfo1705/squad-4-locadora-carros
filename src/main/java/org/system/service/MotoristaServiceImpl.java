@@ -2,9 +2,9 @@ package org.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.system.entity.Motorista;
 import org.system.repository.MotoristaRepository;
+import org.system.service.interfaces.MotoristaService;
 
 import javax.transaction.Transactional;
 import java.util.List;

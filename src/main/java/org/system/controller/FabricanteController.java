@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.system.entity.Fabricante;
-import org.system.service.FabricanteService;
+import org.system.service.interfaces.FabricanteService;
 
 import java.util.List;
 
