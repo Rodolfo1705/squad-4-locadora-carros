@@ -5,17 +5,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.system.service.CategoriaServiceImpl;
+import org.system.entity.Acessorio;
+import org.system.service.AcessorioServiceImpl;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/categorias")
-public class CategoriaController {
+@RequestMapping("/acessorios")
+public class AcessorioController {
     @Autowired
-    private CategoriaServiceImpl categoriaServiceImpl;
+    private AcessorioServiceImpl acessorioService;
     @GetMapping
-    public ResponseEntity<List<String>> getCategorias(){
-        return ResponseEntity.ok(categoriaServiceImpl.getCategorias());
+    public ResponseEntity<List<Acessorio>> getAcessorios(){
+        return ResponseEntity.ok(acessorioService.getAcessorios());
     }
 }
