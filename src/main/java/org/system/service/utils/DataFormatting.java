@@ -1,4 +1,4 @@
-package org.system.service.util;
+package org.system.service.utils;
 
 public class DataFormatting {
 
