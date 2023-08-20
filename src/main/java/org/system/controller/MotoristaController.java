@@ -31,14 +31,14 @@ public class MotoristaController {
         }
     }
 
-   /* @GetMapping(value = "/{email}")
-    public ResponseEntity<?> findEmail(@PathVariable String email) {
-        Motorista motorista = motoristaService.findEmail(email);
+   @GetMapping(value = "/{email}")
+    public ResponseEntity<?> findByEmail(@PathVariable String email) {
+        Motorista motorista = motoristaService.findByEmail(email);
 
         if (motorista == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email não encontrado!");
         } else {
             return ResponseEntity.ok(motorista);
         }
-    }*/
+    }
 }
