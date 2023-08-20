@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "acessorio")
+@Table(name = "acessorios")
 @NoArgsConstructor
 public class Acessorio {
     @Id

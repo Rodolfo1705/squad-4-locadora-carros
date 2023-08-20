@@ -2,10 +2,12 @@ package org.system.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
 import java.util.Date;
+
 @Data
 @Entity
 @DiscriminatorValue("Motorista")
