@@ -44,11 +44,7 @@ public class AluguelController {
 
         boolean paymentSuccessful = aluguelService.verifyPayment(cardNumber, expirationDate, cvv);
 
-        if (paymentSuccessful) {
-            return "redirect:/resumo-reserva";
-        } else {
-            return "redirect:/pagamento-falhou";
-        }
+        return paymentSuccesful ? "redirect:/resumo-reserva" : "redirect:/pagamento-falhou"
     }
 
     //Após a confirmação de aluguel
