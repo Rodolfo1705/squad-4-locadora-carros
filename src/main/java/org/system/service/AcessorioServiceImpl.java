@@ -16,4 +16,13 @@ public class AcessorioServiceImpl implements AcessorioService {
     public List<Acessorio> getAcessorios() {
         return acessorioRepository.findAll();
     }
+
+    @Override
+    public Acessorio save(Acessorio acessorio) {
+        try {
+            return acessorioRepository.save(acessorio);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

@@ -2,6 +2,7 @@ package org.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.system.entity.Motorista;
 import org.system.repository.MotoristaRepository;
 import org.system.service.interfaces.MotoristaService;
@@ -33,7 +34,7 @@ public class MotoristaServiceImpl implements MotoristaService {
                 throw new IllegalArgumentException("CNH inválida");
             }
 
-            /*if (existCPF(motorista.getCpf())) {
+            if (existCPF(motorista.getCpf())) {
                 throw new IllegalArgumentException("CPF já existente no sistema!");
             }
             if (existCNH(motorista.getCpf())) {
@@ -41,7 +42,7 @@ public class MotoristaServiceImpl implements MotoristaService {
             }
             if (existEmail(motorista.getCpf())) {
                 throw new IllegalArgumentException("Email já existente no sistema!");
-            }*/
+            }
 
             motorista.setCpf(formatCPF(motorista.getCpf()));
 
@@ -58,9 +59,27 @@ public class MotoristaServiceImpl implements MotoristaService {
                 return false;
             }
 
-            Long.parseLong(cpf);
+            int[] multiplicadores1 = {10, 9, 8, 7, 6, 5, 4, 3, 2};
+            int[] multiplicadores2 = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 
-            return true;
+            // Calcula o primeiro dígito verificador
+            int soma = 0;
+            for (int i = 0; i < 9; i++) {
+                soma += Integer.parseInt(cpf.substring(i, i + 1)) * multiplicadores1[i];
+            }
+            int resto = soma % 11;
+            int digito1 = resto < 2 ? 0 : 11 - resto;
+
+            // Calcula o segundo dígito verificador
+            soma = 0;
+            for (int i = 0; i < 10; i++) {
+                soma += Integer.parseInt(cpf.substring(i, i + 1)) * multiplicadores2[i];
+            }
+            resto = soma % 11;
+            int digito2 = resto < 2 ? 0 : 11 - resto;
+
+            // Compara os dígitos calculados com os dígitos reais
+            return digito1 == Integer.parseInt(cpf.substring(9, 10)) && digito2 == Integer.parseInt(cpf.substring(10));
         } catch (NumberFormatException e) {
             return false;
         }
@@ -82,19 +101,25 @@ public class MotoristaServiceImpl implements MotoristaService {
     }
 
     public static String formatCPF(String CPF) {
-        return(CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "." +
-                CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
+        String cpf = CPF.replaceAll("[^0-9]", "");
+
+        return(cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." +
+                cpf.substring(6, 9) + "-" + cpf.substring(9, 11));
     }
 
-    /*private boolean existCPF(String CPF){
-        return motoristaRepository.existsCPF(CPF);
+    private boolean existCPF(String cpf){
+        return motoristaRepository.findByCpf(cpf) != null);
     }
 
-    private boolean existCNH(String CNH){
-        return motoristaRepository.existsCNH(CNH);
+    private boolean existCNH(String numeroCNH){
+        return motoristaRepository.findBynumeroCNH(numeroCNH) != null);
+    }
+
+    private boolean existEmail(String email){
+        return (motoristaRepository.findByEmail(email) != null);
     }
 
     public Motorista findByEmail(@PathVariable String email){
         return motoristaRepository.findByEmail(email);
-    }*/
+    }
 }

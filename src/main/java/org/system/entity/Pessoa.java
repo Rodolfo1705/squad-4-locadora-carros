@@ -21,6 +21,7 @@ public class Pessoa {
     @Column(name = "nome")
     protected String nome;
     @Column(name = "dataNascimento")
+    @Temporal(TemporalType.DATE)
     protected Date dataNascimento;
     @Column(name = "cpf", unique = true)
     protected String cpf;
