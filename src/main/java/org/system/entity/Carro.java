@@ -1,10 +1,9 @@
 package org.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.system.controller.CarroController;
-import org.system.service.CarroServiceImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,9 +26,13 @@ public class Carro {
     private String cor;
     @Column(name = "valorDiaria")
     private BigDecimal valorDiaria;
-    @Column(name = "acessorios")
     @ManyToMany
-    private List<Acessorio> acessorios = new ArrayList<>()  ;
+    @JoinTable(
+            name = "carro_acessorio",
+            joinColumns = @JoinColumn(name = "carro_id"),
+            inverseJoinColumns = @JoinColumn(name = "acessorio_id")
+    )
+    private List<Acessorio> acessorios = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "modelo_id")
     private ModeloCarro modeloCarro;
@@ -69,5 +72,20 @@ public class Carro {
         }
 
         return datasOcupadas;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\n  id: " + id +
+                "\n placa: " + placa + '\'' +
+                "\n chassi: " + chassi + '\'' +
+                "\n cor: " + cor + '\'' +
+                "\n valorDiaria: " + valorDiaria +
+                "\n acessorios: " + acessorios +
+                "\n modeloCarro: " + modeloCarro +
+                "\n alugueis: " + alugueis +
+                "\n datasOcupadas: " + datasOcupadas +
+                "\n}";
     }
 }

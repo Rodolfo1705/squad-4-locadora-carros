@@ -11,8 +11,6 @@
     import java.time.LocalDate;
     import java.util.List;
 
-    import static java.lang.Integer.parseInt;
-
     @Service
     public class AluguelServiceImpl implements AluguelService {
 

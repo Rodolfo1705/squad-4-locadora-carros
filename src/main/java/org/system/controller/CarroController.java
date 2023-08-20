@@ -5,24 +5,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.system.entity.Carro;
+import org.system.entity.Categoria;
+import org.system.entity.Acessorio;
+import org.system.entity.ModeloCarro;
 import org.system.service.CarroServiceImpl;
+import org.system.service.ModeloCarroServiceImpl;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/carros")
 public class CarroController {
+
     @Autowired
     private CarroServiceImpl carroService;
+    @Autowired
+    private ModeloCarroServiceImpl modeloCarroService;
 
     @GetMapping
-    public ResponseEntity<List<Carro>> findAll() {
+    public List<Carro> findAll() {
         List<Carro> carros = carroService.findAll();
-
-            return ResponseEntity.ok(carros);
+        return carros;
     }
 
     //Após a adição das datas
@@ -48,7 +55,48 @@ public class CarroController {
         return ResponseEntity.notFound().build();
     }
 
+    //filtrar carros por uma categoria
+    @GetMapping(value = "/categoria/{categoria}")
+    public ResponseEntity<List<Carro>> findByCategoria(@PathVariable Categoria categoria) {
+        List<ModeloCarro> modelosCategoria = modeloCarroService.findByCategoria(categoria);
 
+        List<Carro> listaCarros = new ArrayList<>();
+
+        for (ModeloCarro modeloCarro : modelosCategoria) {
+            List<Carro> carrosDoModelo = carroService.findByModeloCarro(modeloCarro);
+            listaCarros.addAll(carrosDoModelo);
+        }
+
+        if (!listaCarros.isEmpty()) {
+            return ResponseEntity.ok(listaCarros);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    //filtrar carros pelo modelo de um carro
+    @GetMapping(value = "/modeloCarro/{modeloCarro}")
+    public ResponseEntity<List<Carro>> findByModeloCarro(@PathVariable ModeloCarro modeloCarro) {
+        List<Carro> carros = carroService.findByModeloCarro(modeloCarro);
+
+        if (!carros.isEmpty()) {
+            return ResponseEntity.ok(carros);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    //filtrar carros por um acessório
+    @GetMapping(value = "/acessorio/{acessorio}")
+    public ResponseEntity<List<Carro>> findByAcessorios(@PathVariable Acessorio acessorio) {
+        List<Carro> carros = carroService.findByAcessorio(acessorio);
+
+        if (!carros.isEmpty()) {
+            return ResponseEntity.ok(carros);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 
 
     @PostMapping

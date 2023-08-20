@@ -8,15 +8,27 @@ import org.system.entity.Acessorio;
 import org.system.service.AcessorioServiceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/acessorios")
 public class AcessorioController {
     @Autowired
     private AcessorioServiceImpl acessorioService;
+
     @GetMapping
-    public ResponseEntity<List<Acessorio>> getAcessorios(){
-        return ResponseEntity.ok(acessorioService.getAcessorios());
+    public ResponseEntity<List<Acessorio>> findAll(){
+        return ResponseEntity.ok(acessorioService.findAll());
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Optional<Acessorio>> findById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(acessorioService.findById(id));
+        } catch (RuntimeException  e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
     }
 
     @PostMapping

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface AcessorioService {
     public Acessorio save(Acessorio acessorio);
-    public List<Acessorio> getAcessorios();
+    public List<Acessorio> findAll();
 }

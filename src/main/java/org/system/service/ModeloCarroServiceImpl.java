@@ -2,6 +2,9 @@ package org.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.system.entity.Carro;
+import org.system.entity.Categoria;
 import org.system.entity.ModeloCarro;
 import org.system.repository.ModeloCarroRepository;
 import org.system.service.interfaces.ModeloCarroService;
@@ -30,5 +33,13 @@ public class ModeloCarroServiceImpl implements ModeloCarroService {
             System.out.println("Não foi possível encontrar registros de modelos de carro!");
         }
         return null;
+    }
+
+    public List<ModeloCarro> findByCategoria(@PathVariable Categoria categoria){
+        try{
+            return modeloCarroRepository.findByCategoria(categoria);
+        } catch (Exception e){
+            return null;
+        }
     }
 }

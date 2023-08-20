@@ -2,7 +2,9 @@ package org.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.system.entity.Acessorio;
 import org.system.entity.Carro;
+import org.system.entity.ModeloCarro;
 import org.system.repository.CarroRepository;
 import org.system.service.interfaces.CarroService;
 
@@ -77,10 +79,23 @@ public class CarroServiceImpl implements CarroService {
     }
 
     public List<Carro> findAll() {
-        return carroRepository.findAll();
+        try {
+            return carroRepository.findAll();
+        }catch (Exception e){
+            System.out.println("Não foi possível encontrar registros de carros!");
+        }
+        return null;
     }
 
     public Optional<Carro> findById(Long id) {
         return carroRepository.findById(id);
+    }
+
+    public List<Carro> findByModeloCarro(ModeloCarro modeloCarro){
+        return carroRepository.findByModeloCarro(modeloCarro);
+    }
+
+    public List<Carro> findByAcessorio(Acessorio acessorio) {
+        return carroRepository.findByAcessoriosContaining(acessorio);
     }
 }

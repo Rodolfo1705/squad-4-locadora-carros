@@ -19,13 +19,9 @@ public class Acessorio {
     private Long id;
     @Column(name = "descricao")
     private String descricao;
-    @Column(name = "carros")
-    @ManyToMany(mappedBy = "acessorios")
-    private List<Carro> carros = new ArrayList<>();
 
-    public Acessorio(Long id, String descricao, List<Carro> carros) {
+    public Acessorio(Long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
-        this.carros = carros;
     }
 }
