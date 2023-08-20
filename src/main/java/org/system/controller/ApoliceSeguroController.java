@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/apolicesSeguro")
-public class ApolicesController {
+public class ApoliceSeguroController {
     @Autowired
     private ApolicesServiceImpl apolicesService;
 
