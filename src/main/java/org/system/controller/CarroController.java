@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.system.entity.Carro;
 import org.system.service.CarroServiceImpl;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,21 @@ public class CarroController {
             return ResponseEntity.ok(carros);
     }
 
+    //Após a adição das datas
+    @GetMapping(value = "/carros-disponiveis")
+    public ResponseEntity<List<Carro>> listarCarrosDisponiveis(@RequestParam String dataInicio, @RequestParam String dataDevolucao) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataInicioParsed = LocalDate.parse(dataInicio, dateFormatter);
+        LocalDate dataDevolucaoParsed = LocalDate.parse(dataDevolucao, dateFormatter);
+
+        List<Carro> carrosDisponiveis = carroService.listarCarrosDisponiveis(dataInicioParsed, dataDevolucaoParsed);
+
+        if (carrosDisponiveis.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(carrosDisponiveis);
+        }
+    }
     @GetMapping(value = "/{id}")
     public ResponseEntity<Carro> findById(@PathVariable Long id) {
         Optional<Carro> carroOptional = carroService.findById(id);
@@ -39,7 +56,7 @@ public class CarroController {
     @PostMapping
     public ResponseEntity<String> insert(@RequestBody Carro carro) {
         try {
-            Carro newCarro = carroService.save(carro);
+            carroService.save(carro);
             return ResponseEntity.ok("Carro cadastrado com sucesso!");
         } catch (RuntimeException  e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

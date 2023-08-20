@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,9 +21,9 @@ public class Aluguel implements Serializable {
     @Column(name = "dataPedido")
     private Calendar dataPedido;
     @Column(name = "dataEntrega")
-    private Date dataEntrega;
+    private LocalDate dataEntrega;
     @Column(name = "dataDevolucao")
-    private Date dataDevolucao;
+    private LocalDate dataDevolucao;
     @Column(name = "valorTotal")
     private BigDecimal valorTotal;
     @OneToOne
@@ -32,7 +33,7 @@ public class Aluguel implements Serializable {
     @JoinColumn(name = "carro_id")
     private Carro carro;
 
-    public Aluguel(Calendar dataPedido, Date dataEntrega, Date dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apoliceSeguro) {
+    public Aluguel(Calendar dataPedido, LocalDate dataEntrega, LocalDate dataDevolucao, BigDecimal valorTotal, ApoliceSeguro apoliceSeguro) {
         this.dataPedido = dataPedido;
         this.dataEntrega = dataEntrega;
         this.dataDevolucao = dataDevolucao;

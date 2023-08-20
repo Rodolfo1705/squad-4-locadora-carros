@@ -6,6 +6,8 @@ import org.system.entity.Carro;
 import org.system.repository.CarroRepository;
 import org.system.service.interfaces.CarroService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,27 @@ public class CarroServiceImpl implements CarroService {
         } catch (Exception e) {
             throw new RuntimeException( e.getMessage());
         }
+    }
+
+    public void saveNewDates(Carro carro){
+        try{
+            carroRepository.save(carro);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public List<Carro> listarCarrosDisponiveis(LocalDate dataInicio, LocalDate dataDevolucao) {
+        List<Carro> carrosDisponiveis = new ArrayList<>();
+        List<Carro> todosCarros = carroRepository.findAll();
+
+        for (Carro carro : todosCarros) {
+            if (carro.isDisponivelParaAluguel(dataInicio, dataDevolucao)) {
+                carrosDisponiveis.add(carro);
+            }
+        }
+
+        return carrosDisponiveis;
     }
 
     public List<Carro> findAll() {
