@@ -18,6 +18,14 @@ public class CarroServiceImpl implements CarroService {
 
     public Carro save(Carro carro) {
         try {
+            if(!isPlacaMercosulValida(carro.getPlaca()) && !isPlacaComumValida(carro.getPlaca())){
+                throw new IllegalArgumentException("Placa do carro inválida!");
+            }
+
+            if(!isChassiValido(carro.getChassi())){
+                throw new IllegalArgumentException("Chassi do carro inválido!");
+            }
+
             if (carroRepository.existsByPlaca(carro.getPlaca())) {
                 throw new IllegalArgumentException("Placa do carro já existente no sistema!");
             }
@@ -29,6 +37,22 @@ public class CarroServiceImpl implements CarroService {
         } catch (Exception e) {
             throw new RuntimeException( e.getMessage());
         }
+    }
+
+    private boolean isChassiValido(String chassi) {
+        String chassiPadrão = "^[A-HJ-NPR-Z0-9]{17}$";
+
+        return chassi.toUpperCase().matches(chassiPadrão);
+    }
+
+    private boolean isPlacaComumValida(String placa) {
+        String placaPadrão = "^[A-Z]{3}-?\\d{4}$";
+        return placa.toUpperCase().matches(placaPadrão);
+    }
+
+    private boolean isPlacaMercosulValida(String placa) {
+        String placaPadrão = "^[A-Z]{3}\\d[A-Z]{2}\\d{2}$";
+        return placa.toUpperCase().matches(placaPadrão);
     }
 
     public void saveNewDates(Carro carro){
