@@ -76,12 +76,6 @@
             System.out.println(month + " / " + currentMonth);
             System.out.println(year + " / " + currentYear);
 
-            if (year > currentYear) {
-                return true;
-            } else if (year == currentYear && month >= currentMonth) {
-                return true;
-            } else {
-                return false;
-            }
+            return ((year > currentYear) || (year == currentYear && month >= currentMonth));
         }
     }
