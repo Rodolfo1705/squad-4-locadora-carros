@@ -26,7 +26,7 @@ public class CarroController {
     }
 
     //Após a adição das datas
-    @GetMapping(value = "/carros-disponiveis")
+    @GetMapping(value = "/disponiveis")
     public ResponseEntity<List<Carro>> listarCarrosDisponiveis(@RequestParam String dataInicio, @RequestParam String dataDevolucao) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dataInicioParsed = LocalDate.parse(dataInicio, dateFormatter);
@@ -34,11 +34,7 @@ public class CarroController {
 
         List<Carro> carrosDisponiveis = carroService.listarCarrosDisponiveis(dataInicioParsed, dataDevolucaoParsed);
 
-        if (carrosDisponiveis.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(carrosDisponiveis);
-        }
+        return carrosDisponiveis.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(carrosDisponiveis);
     }
     @GetMapping(value = "/{id}")
     public ResponseEntity<Carro> findById(@PathVariable Long id) {
