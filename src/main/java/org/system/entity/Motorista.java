@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,6 +17,8 @@ public class Motorista extends Pessoa  {
     private String numeroCNH;
     @OneToOne
     private CarrinhoCompra carrinhoCompra;
+    @OneToMany
+    private List<Aluguel> alugueis;
 
     public Motorista(String nome, LocalDate dataNascimento, String cpf, Sexo sexo, String email, String numeroCNH, CarrinhoCompra carrinhoCompra) {
         super(nome, dataNascimento, cpf, sexo, email);

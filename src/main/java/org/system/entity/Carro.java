@@ -66,11 +66,14 @@ public class Carro {
         return true;
     }
 
-    public void bloquearDatas(LocalDate dataInicio, LocalDate dataDevolucao) {
+    public List<LocalDate> bloquearDatas(LocalDate dataInicio, LocalDate dataDevolucao) {
         LocalDate data = dataInicio;
         while (!data.isAfter(dataDevolucao)) {
             datasOcupadas.add(data);
             data = data.plusDays(1);
         }
+
+        return datasOcupadas;
+
     }
 }

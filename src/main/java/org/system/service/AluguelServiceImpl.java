@@ -4,12 +4,15 @@
     import org.springframework.stereotype.Service;
     import org.springframework.web.bind.annotation.RequestParam;
     import org.system.entity.Aluguel;
+    import org.system.entity.CarrinhoCompra;
     import org.system.entity.Carro;
+    import org.system.entity.Motorista;
     import org.system.repository.AluguelRepository;
     import org.system.service.interfaces.AluguelService;
 
     import java.time.LocalDate;
     import java.util.List;
+    import java.util.Optional;
 
     @Service
     public class AluguelServiceImpl implements AluguelService {
@@ -42,9 +45,7 @@
         }
 
         public boolean verifyPayment(String cardNumber, String expirationDate, String cvv){
-            /*if (cardNumber.matches("\\d{13,16}") || (cvv.matches("\\d{3}")) || isExpirationDateValid(expirationDate)){
-                return true;
-            }*/
+
             if (!cardNumber.matches("\\d{13,16}")){
                 System.out.println("fui eu: Cartão");
                 return false;
@@ -74,5 +75,13 @@
             System.out.println(year + " / " + currentYear);
 
             return ((year > currentYear) || (year == currentYear && month >= currentMonth));
+        }
+
+        public List<Aluguel> findAlugueisMotorista(Motorista motorista) {
+            try{
+                return aluguelRepository.findByMotorista(motorista);
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
+            }
         }
     }
