@@ -28,8 +28,7 @@ public class CarroController {
 
     @GetMapping
     public List<Carro> findAll() {
-        List<Carro> carros = carroService.findAll();
-        return carros;
+        return carroService.findAll();
     }
 
     //Após a adição das datas
@@ -47,11 +46,11 @@ public class CarroController {
     public ResponseEntity<Carro> findById(@PathVariable Long id) {
         Carro carro = carroService.findById(id);
 
-        if (carro != null) {
-            return ResponseEntity.ok(carro);
+        if (carro == null) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(carro);
     }
 
     @GetMapping(value = "/categoria/{categoria}")
@@ -65,33 +64,33 @@ public class CarroController {
             listaCarros.addAll(carrosDoModelo);
         }
 
-        if (!listaCarros.isEmpty()) {
-            return ResponseEntity.ok(listaCarros);
+        if (listaCarros.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(listaCarros);
     }
 
     @GetMapping(value = "/modeloCarro/{modeloCarro}")
     public ResponseEntity<List<Carro>> findByModeloCarro(@PathVariable ModeloCarro modeloCarro) {
         List<Carro> carros = carroService.findByModeloCarro(modeloCarro);
 
-        if (!carros.isEmpty()) {
-            return ResponseEntity.ok(carros);
+        if (carros.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(carros);
     }
 
     @GetMapping(value = "/acessorio/{acessorio}")
     public ResponseEntity<List<Carro>> findByAcessorios(@PathVariable Acessorio acessorio) {
         List<Carro> carros = carroService.findByAcessorio(acessorio);
 
-        if (!carros.isEmpty()) {
-            return ResponseEntity.ok(carros);
+        if (carros.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(carros);
     }
 
     @PostMapping

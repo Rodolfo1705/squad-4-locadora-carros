@@ -40,11 +40,11 @@ public class AluguelController {
     public ResponseEntity<List<Aluguel>> findAll() {
         List<Aluguel> alugueis = aluguelService.findAll();
 
-        if (!alugueis.isEmpty()) {
-            return ResponseEntity.ok(alugueis);
+        if (alugueis.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        return ResponseEntity.ok(alugueis);
     }
 
     @PostMapping("/pagamento-cartao")
