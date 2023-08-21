@@ -54,7 +54,6 @@ public class CarroController {
         return ResponseEntity.notFound().build();
     }
 
-    //filtrar carros por uma categoria
     @GetMapping(value = "/categoria/{categoria}")
     public ResponseEntity<List<Carro>> findByCategoria(@PathVariable Categoria categoria) {
         List<ModeloCarro> modelosCategoria = modeloCarroService.findByCategoria(categoria);
@@ -73,7 +72,6 @@ public class CarroController {
         return ResponseEntity.notFound().build();
     }
 
-    //filtrar carros pelo modelo de um carro
     @GetMapping(value = "/modeloCarro/{modeloCarro}")
     public ResponseEntity<List<Carro>> findByModeloCarro(@PathVariable ModeloCarro modeloCarro) {
         List<Carro> carros = carroService.findByModeloCarro(modeloCarro);
@@ -85,7 +83,6 @@ public class CarroController {
         return ResponseEntity.notFound().build();
     }
 
-    //filtrar carros por um acessório
     @GetMapping(value = "/acessorio/{acessorio}")
     public ResponseEntity<List<Carro>> findByAcessorios(@PathVariable Acessorio acessorio) {
         List<Carro> carros = carroService.findByAcessorio(acessorio);
@@ -96,7 +93,6 @@ public class CarroController {
 
         return ResponseEntity.notFound().build();
     }
-
 
     @PostMapping
     public ResponseEntity<String> insert(@RequestBody Carro carro) {

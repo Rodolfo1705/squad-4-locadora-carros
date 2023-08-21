@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
-@RequestMapping("/carrinhoCompras")
+@RequestMapping("/carrinhos-compra")
 public class CarrinhoCompraController {
 
     @Autowired
@@ -41,13 +41,11 @@ public class CarrinhoCompraController {
     public ResponseEntity<?> findByMotorista(@PathVariable String email){
         try {
             Motorista motorista = motoristaService.findByEmail(email);
-            System.out.println(email);
             CarrinhoCompra carrinhoCompra = carrinhoCompraService.findByMotorista(motorista);
-            System.out.println(carrinhoCompra);
 
             return ResponseEntity.ok(carrinhoCompra.getListaCarros());
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar carros no carrinho: \" + e.getMessage()");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar carros no carrinho: " + e.getMessage());
         }
     }
 
@@ -68,6 +66,7 @@ public class CarrinhoCompraController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar carro no carrinho de compras: " + e.getMessage());
         }
     }
+
 
     //Na hora da 1ª confirmação, as informações de motorista logado, carro e as datas da reserva são passadas novamente para
     // o sistema. Ao recarregar a página, os detalhes serão mostrados junto as informações do carro para a 2ª confirmação
