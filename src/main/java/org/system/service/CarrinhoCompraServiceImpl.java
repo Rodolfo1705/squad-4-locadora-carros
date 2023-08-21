@@ -42,14 +42,6 @@ public class CarrinhoCompraServiceImpl implements CarrinhoCompraService {
         }
     }
 
-    /**public CarrinhoCompra findByMotorista(Long id) {
-        try{
-            return carrinhoCompraRepository.findByMotorista(id);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-    }*/
-
     public CarrinhoCompra findByMotorista(Motorista motorista) {
         try{
             return carrinhoCompraRepository.findByMotorista(motorista);

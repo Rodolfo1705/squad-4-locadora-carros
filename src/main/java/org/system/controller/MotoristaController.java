@@ -20,8 +20,7 @@ public class MotoristaController {
 
     @GetMapping
     public List<Motorista> findAll() {
-        List<Motorista> motoristas = motoristaService.findAll();
-        return motoristas;
+        return motoristaService.findAll();
     }
 
     @PostMapping
@@ -44,10 +43,6 @@ public class MotoristaController {
     public ResponseEntity<?> findByEmail(@PathVariable String email) {
         Motorista motorista = motoristaService.findByEmail(email);
 
-        if (motorista == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email não encontrado!");
-        } else {
-            return ResponseEntity.ok(motorista);
-        }
+       return motorista == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email não encontrado!") : ResponseEntity.ok(motorista);
     }
 }

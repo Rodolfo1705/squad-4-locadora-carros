@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/carrinhoCompras")
+@RequestMapping("/carrinhos-compra")
 public class CarrinhoCompraController {
 
     @Autowired
@@ -43,18 +43,17 @@ public class CarrinhoCompraController {
     public ResponseEntity<?> findByMotorista(@PathVariable String email){
         try {
             Motorista motorista = motoristaService.findByEmail(email);
-            System.out.println(email);
             CarrinhoCompra carrinhoCompra = carrinhoCompraService.findByMotorista(motorista);
-            System.out.println(carrinhoCompra);
 
             return ResponseEntity.ok(carrinhoCompra.getListaCarros());
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar carros no carrinho: \" + e.getMessage()");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar carros no carrinho: " + e.getMessage());
         }
     }
 
     //Método que pega o email do motorista logado e o id do carro que o cliente quer e adiciona no carrinho
-    /*@PostMapping
+    /*
+    @PostMapping
     public ResponseEntity<String> save(@RequestBody Carro carro, @RequestParam String email){
         try {
             Motorista motorista = motoristaService.findByEmail(email);
@@ -63,7 +62,8 @@ public class CarrinhoCompraController {
             carrinhoCompraService.addCarros(carrinhoCompra, carro);
             return ResponseEntity.ok("Carro adicionado no carrinho com sucesso");
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar carro no carrinho de compras: \" + e.getMessage()");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar carro no carrinho de compras: " + e.getMessage());
         }
-    }*/
+    }
+     */
 }

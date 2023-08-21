@@ -12,7 +12,7 @@ import org.system.service.ApolicesServiceImpl;
 import java.util.List;
 
 @RestController
-@RequestMapping("/apolicesSeguro")
+@RequestMapping("/apolices-seguro")
 public class ApoliceSeguroController {
     @Autowired
     private ApolicesServiceImpl apolicesService;

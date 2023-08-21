@@ -27,7 +27,6 @@ public class Pessoa {
     protected String cpf;
     @Column(name = "sexo")
     protected Sexo sexo;
-
     @Column(name = "email", unique = true)
     protected String email;
 
@@ -37,13 +36,5 @@ public class Pessoa {
         this.cpf = cpf;
         this.sexo = sexo;
         this.email = email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 }
