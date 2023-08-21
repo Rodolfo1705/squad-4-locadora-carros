@@ -15,15 +15,16 @@ public class MotoristaServiceImpl implements MotoristaService {
     @Autowired
     private MotoristaRepository motoristaRepository;
 
+    @Override
     public List<Motorista> findAll() {
-        return motoristaRepository.findAll();
+        try {
+            return motoristaRepository.findAll();
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
-
-    public void addMotorista(Motorista motorista) {
-        motoristaRepository.saveAndFlush(motorista);
-    }
-    @Transactional
+    @Override
     public Motorista save(Motorista motorista) {
         try {
             if (!isCPF(motorista.getCpf())){
@@ -119,7 +120,17 @@ public class MotoristaServiceImpl implements MotoristaService {
         return (motoristaRepository.findByEmail(email) != null);
     }
 
+    @Override
     public Motorista findByEmail(@PathVariable String email){
         return motoristaRepository.findByEmail(email);
+    }
+
+    @Override
+    public void remove(Long motoristaId){
+        try {
+            motoristaRepository.deleteById(motoristaId);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao remover motorista: " + e.getMessage());
+        }
     }
 }

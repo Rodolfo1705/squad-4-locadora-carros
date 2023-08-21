@@ -17,8 +17,8 @@ public class CarrinhoCompra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
+    @JoinColumn(name = "motorista_id")
     private Motorista motorista;
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "carrinho_compra_carro",

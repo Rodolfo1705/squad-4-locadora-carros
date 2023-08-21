@@ -23,9 +23,10 @@ public class CarrinhoCompraServiceImpl implements CarrinhoCompraService {
         return carrinho;
     }
 
-    public void save(CarrinhoCompra carrinhoCompra){
+    @Override
+    public CarrinhoCompra save(CarrinhoCompra carrinhoCompra){
         try{
-            carrinhoCompraRepository.save(carrinhoCompra);
+            return carrinhoCompraRepository.save(carrinhoCompra);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -51,6 +52,7 @@ public class CarrinhoCompraServiceImpl implements CarrinhoCompraService {
         }
     }
 
+    @Override
     public CarrinhoCompra findById(Long carrinhoId) {
         try{
             Optional<CarrinhoCompra> carrinhoOptional = carrinhoCompraRepository.findById(carrinhoId);

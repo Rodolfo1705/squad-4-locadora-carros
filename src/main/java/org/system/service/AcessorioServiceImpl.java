@@ -3,6 +3,7 @@ package org.system.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.system.entity.Acessorio;
+import org.system.entity.ApoliceSeguro;
 import org.system.repository.AcessorioRepository;
 import org.system.service.interfaces.AcessorioService;
 
@@ -18,12 +19,18 @@ public class AcessorioServiceImpl implements AcessorioService {
         return acessorioRepository.findAll();
     }
 
-    public Optional<Acessorio> findById(Long id){
+    @Override
+    public Acessorio findById(Long id){
         try{
-            return acessorioRepository.findById(id);
-        } catch (Exception e){
-            return null;
+            Optional<Acessorio> acessorioOptional = acessorioRepository.findById(id);
+            if (acessorioOptional.isPresent()){
+                Acessorio acessorio = acessorioOptional.get();
+                return acessorio;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
+        return null;
     }
 
     @Override
@@ -32,6 +39,15 @@ public class AcessorioServiceImpl implements AcessorioService {
             return acessorioRepository.save(acessorio);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void remove(Long id){
+        try {
+            acessorioRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao remover acessório: " + e.getMessage());
         }
     }
 }

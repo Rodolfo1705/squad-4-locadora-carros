@@ -58,4 +58,13 @@ public class ModeloCarroServiceImpl implements ModeloCarroService {
         }
         return null;
     }
+
+    @Override
+    public void remove(Long id){
+        try {
+            modeloCarroRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao remover modelo de carro: " + e.getMessage());
+        }
+    }
 }

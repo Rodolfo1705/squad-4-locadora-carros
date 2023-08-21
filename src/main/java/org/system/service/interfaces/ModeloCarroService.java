@@ -7,6 +7,6 @@ import java.util.List;
 public interface ModeloCarroService {
     ModeloCarro save(ModeloCarro modeloCarro);
     List<ModeloCarro> findAll();
-
     ModeloCarro findById(Long id);
+    void remove(Long id);
 }

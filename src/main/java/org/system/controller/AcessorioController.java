@@ -22,7 +22,7 @@ public class AcessorioController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<Acessorio>> findById(@PathVariable Long id){
+    public ResponseEntity<Acessorio> findById(@PathVariable Long id){
         try {
             return ResponseEntity.ok(acessorioService.findById(id));
         } catch (RuntimeException  e) {

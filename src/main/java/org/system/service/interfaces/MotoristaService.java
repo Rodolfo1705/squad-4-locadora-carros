@@ -5,6 +5,8 @@ import org.system.entity.Motorista;
 import java.util.List;
 
 public interface MotoristaService {
-    public List<Motorista> findAll();
-    public Motorista save(Motorista motorista);
+    List<Motorista> findAll();
+    Motorista save(Motorista motorista);
+    void remove (Long motorista);
+    Motorista findByEmail(String email);
 }
