@@ -29,11 +29,11 @@ public class AluguelController {
     public ResponseEntity<List<Aluguel>> findAll() {
         List<Aluguel> alugueis = aluguelService.findAll();
 
-        if (!alugueis.isEmpty()) {
-            return ResponseEntity.ok(alugueis);
+        if (alugueis.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        return ResponseEntity.ok(alugueis);
     }
 
     @PostMapping("/pagamento-cartao")
@@ -51,14 +51,6 @@ public class AluguelController {
     @PostMapping
     public ResponseEntity<String> insert(@RequestBody Aluguel aluguel) {
         try {
-            //informações para teste de bloqueio
-
-            /*LocalDate dataInicio = LocalDate.of(2023, 8, 25);
-            LocalDate dataFinal = LocalDate.of(2023, 8, 29);
-
-            aluguel.setDataEntrega(dataInicio);
-            aluguel.setDataDevolucao(dataFinal);*/
-
             aluguelService.save(aluguel);
             return ResponseEntity.ok("Aluguel confirmado!");
         } catch (RuntimeException  e) {
