@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.system.entity.CarrinhoCompra;
 import org.system.entity.Motorista;
+import org.system.service.CarrinhoCompraServiceImpl;
 import org.system.service.MotoristaServiceImpl;
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
 public class MotoristaController {
     @Autowired
     private MotoristaServiceImpl motoristaService;
+    @Autowired
+    private CarrinhoCompraServiceImpl carrinhoCompraService;
 
     @GetMapping
     public List<Motorista> findAll() {
@@ -24,6 +28,11 @@ public class MotoristaController {
     public ResponseEntity<String> insert(@RequestBody Motorista motorista) {
         try {
             Motorista newMotorista = motoristaService.save(motorista);
+
+            CarrinhoCompra carrinhoCompra = new CarrinhoCompra();
+            carrinhoCompra.setMotorista(newMotorista);
+            carrinhoCompraService.save(carrinhoCompra);
+
             return ResponseEntity.ok("Motorista cadastrado com sucesso!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

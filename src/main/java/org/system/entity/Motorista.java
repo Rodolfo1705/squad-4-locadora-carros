@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Data
@@ -16,14 +17,12 @@ public class Motorista extends Pessoa  {
 
     @Column(name = "numeroCNH", unique = true)
     private String numeroCNH;
+    @OneToOne
+    private CarrinhoCompra carrinhoCompra;
 
-
-    public Motorista(String nome, Date dataNascimento, String cpf, Sexo sexo, String email, String numeroCNH) {
+    public Motorista(String nome, Date dataNascimento, String cpf, Sexo sexo, String email, String numeroCNH, CarrinhoCompra carrinhoCompra) {
         super(nome, dataNascimento, cpf, sexo, email);
         this.numeroCNH = numeroCNH;
-    }
-
-    public String getNumeroCNH() {
-        return numeroCNH;
+        this.carrinhoCompra = carrinhoCompra;
     }
 }

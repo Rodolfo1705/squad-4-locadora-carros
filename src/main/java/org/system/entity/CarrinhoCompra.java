@@ -1,9 +1,9 @@
 package org.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Entity
@@ -14,11 +14,20 @@ public class CarrinhoCompra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
-    private List<Carro> carros;
+    @OneToOne
+    private Motorista motorista;
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "carrinhoCompra_carro",
+            joinColumns = @JoinColumn(name = "carrinho_id"),
+            inverseJoinColumns = @JoinColumn(name = "carro_id")
+    )
+    private List<Carro> listaCarros;
 
-    public CarrinhoCompra(Long id, List<Carro> carros) {
+    public CarrinhoCompra(Long id, Motorista motorista, List<Carro> listaCarros) {
         this.id = id;
-        this.carros = carros;
+        this.motorista = motorista;
+        this.listaCarros = listaCarros;
     }
 }

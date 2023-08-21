@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "alugueis")
@@ -27,7 +28,7 @@ public class Aluguel implements Serializable {
     @Column(name = "valorTotal")
     private BigDecimal valorTotal;
     @OneToOne
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "apolice_seguro_id")
     private ApoliceSeguro apoliceSeguro;
     @ManyToOne
     @JoinColumn(name = "carro_id")

@@ -45,10 +45,9 @@ public class CarroController {
     }
     @GetMapping(value = "/{id}")
     public ResponseEntity<Carro> findById(@PathVariable Long id) {
-        Optional<Carro> carroOptional = carroService.findById(id);
+        Carro carro = carroService.findById(id);
 
-        if (carroOptional.isPresent()) {
-            Carro carro = carroOptional.get();
+        if (carro != null) {
             return ResponseEntity.ok(carro);
         }
 

@@ -1,6 +1,7 @@
 package org.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.system.entity.Fabricante;
@@ -15,14 +16,14 @@ public class FabricanteController {
     private FabricanteService fabricanteService;
 
     @GetMapping
-    public ResponseEntity<List<Fabricante>> findAll(){
+    public ResponseEntity<?> findAll(){
         try {
             List<Fabricante> fabricantes = fabricanteService.findAll();
             return ResponseEntity.ok(fabricantes);
         }catch (Exception e){
-            System.out.println("Não foi possível encontrar registros de fabricantes!");
+            String errorMessage = "Não foi possível encontrar registros de fabricantes!";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
-        return null;
     }
 
     @PostMapping

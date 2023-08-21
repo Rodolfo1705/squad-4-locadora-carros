@@ -7,5 +7,5 @@ import java.util.List;
 public interface CarroService {
     public Carro save(Carro carro);
     public List<Carro> findAll();
-
+    public Carro findById(Long id);
 }

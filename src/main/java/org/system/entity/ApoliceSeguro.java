@@ -22,6 +22,8 @@ public class ApoliceSeguro {
     private boolean protecaoCausasNaturais;
     @Column(name = "protecaoRoubo")
     private boolean protecaoRoubo;
+    @OneToOne(mappedBy = "apoliceSeguro")
+    private Aluguel aluguel;
 
     public ApoliceSeguro(Long id, BigDecimal valorFranquia, boolean protecaoTerceiro, boolean protecaoCausasNaturais, boolean protecaoRoubo) {
         this.id = id;

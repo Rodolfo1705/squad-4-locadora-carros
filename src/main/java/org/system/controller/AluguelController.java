@@ -53,11 +53,11 @@ public class AluguelController {
         try {
             //informações para teste de bloqueio
 
-            LocalDate dataInicio = LocalDate.of(2023, 8, 25);
+            /*LocalDate dataInicio = LocalDate.of(2023, 8, 25);
             LocalDate dataFinal = LocalDate.of(2023, 8, 29);
 
             aluguel.setDataEntrega(dataInicio);
-            aluguel.setDataDevolucao(dataFinal);
+            aluguel.setDataDevolucao(dataFinal);*/
 
             aluguelService.save(aluguel);
             return ResponseEntity.ok("Aluguel confirmado!");

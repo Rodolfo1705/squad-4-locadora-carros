@@ -2,6 +2,7 @@ package org.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.system.entity.Acessorio;
 import org.system.entity.Carro;
 import org.system.entity.ModeloCarro;
@@ -65,6 +66,7 @@ public class CarroServiceImpl implements CarroService {
         }
     }
 
+    //Depois do cliente definir as datas, chamar o método para ser mostrado apenas os carros disponíveis naquelas datas
     public List<Carro> listarCarrosDisponiveis(LocalDate dataInicio, LocalDate dataDevolucao) {
         List<Carro> carrosDisponiveis = new ArrayList<>();
         List<Carro> todosCarros = carroRepository.findAll();
@@ -87,8 +89,14 @@ public class CarroServiceImpl implements CarroService {
         return null;
     }
 
-    public Optional<Carro> findById(Long id) {
-        return carroRepository.findById(id);
+    @Override
+    public Carro findById(@PathVariable Long id) {
+        Optional<Carro> carroOptional = carroRepository.findById(id);
+        if (carroOptional.isPresent()) {
+            Carro carro = carroOptional.get();
+            return carro;
+        }
+        return null;
     }
 
     public List<Carro> findByModeloCarro(ModeloCarro modeloCarro){
