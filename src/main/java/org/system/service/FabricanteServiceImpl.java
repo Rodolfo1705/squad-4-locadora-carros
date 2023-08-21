@@ -2,11 +2,14 @@ package org.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.system.entity.CarrinhoCompra;
 import org.system.entity.Fabricante;
 import org.system.repository.FabricanteRepository;
 import org.system.service.interfaces.FabricanteService;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class FabricanteServiceImpl implements FabricanteService {
     @Autowired
@@ -16,17 +19,29 @@ public class FabricanteServiceImpl implements FabricanteService {
         try {
             return fabricanteRepository.save(fabricante);
         }catch (Exception e){
-            System.out.println("Não foi possível salvar fabricante!");
+            throw new RuntimeException(e.getMessage());
         }
-        return null;
     }
 
     @Override
     public List<Fabricante> findAll() {
         try {
             return fabricanteRepository.findAll();
-        }catch (Exception e){
-            System.out.println("Não foi possível encontrar registros de fabricantes!");
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Fabricante findById(Long id){
+        try{
+            Optional<Fabricante> fabricanteOptional = fabricanteRepository.findById(id);
+            if (fabricanteOptional.isPresent()){
+                Fabricante fabricante = fabricanteOptional.get();
+                return fabricante;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
         return null;
     }

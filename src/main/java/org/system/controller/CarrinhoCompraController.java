@@ -8,13 +8,10 @@ import org.system.entity.*;
 import org.system.entity.dto.AdicionarCarrinhoDTO;
 import org.system.entity.dto.DetalhesReservaDTO;
 import org.system.service.*;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
-@RequestMapping("/carrinhos-compra")
+@RequestMapping("/carrinhos-compras")
 public class CarrinhoCompraController {
 
     @Autowired
@@ -53,15 +50,12 @@ public class CarrinhoCompraController {
     @PostMapping(value = "/adicionar-carro")
     public ResponseEntity<String> save(@RequestBody AdicionarCarrinhoDTO adicionarCarrinhoDTO){
         try {
-            String email = adicionarCarrinhoDTO.getEmail();
-            Long id = adicionarCarrinhoDTO.getId();
-
-            Motorista motorista = motoristaService.findByEmail(email);
+            Motorista motorista = motoristaService.findByEmail(adicionarCarrinhoDTO.getEmail());
             CarrinhoCompra carrinhoCompra = carrinhoCompraService.findByMotorista(motorista);
-            Carro carro = carroService.findById(id);
+            Carro carro = carroService.findById(adicionarCarrinhoDTO.getId());
 
             carrinhoCompraService.addCarros(carrinhoCompra, carro);
-            return ResponseEntity.ok("Carro adicionado no carrinho com sucesso");
+            return ResponseEntity.ok("Carro adicionado ao carrinho com sucesso");
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar carro no carrinho de compras: " + e.getMessage());
         }
@@ -72,6 +66,54 @@ public class CarrinhoCompraController {
     // o sistema. Ao recarregar a página, os detalhes serão mostrados junto as informações do carro para a 2ª confirmação
     @GetMapping(value = "/detalhes-reserva")
     public ResponseEntity<?> listarCarrosDisponiveis(@RequestBody DetalhesReservaDTO detalhesReservaDTO) {
+        String email = detalhesReservaDTO.getEmailMotorista();
+        Motorista motorista = motoristaService.findByEmail(email);
+
+        if (motorista == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        detalhesReservaDTO.setMotorista(motorista);
+
         return ResponseEntity.ok(detalhesReservaDTO);
+    }
+
+    //Mostrar lista de carros salvos em um determinado carrinho de compras
+    @GetMapping(value = "/carrinho/{carrinhoId}")
+    public ResponseEntity<?> findByCarros (@PathVariable Long carrinhoId){
+        List<Carro> carrosNoCarrinho = carrinhoCompraService.getCarrosByCarrinhoId(carrinhoId);
+
+        if (carrosNoCarrinho.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(carrosNoCarrinho);
+    }
+
+    //Pegar detalhes de um carro em um carrinho específico
+    @GetMapping(value = "/carrinho/{carrinhoId}/{carroId}")
+    public ResponseEntity<?> findByCarroId(@PathVariable Long carrinhoId, @PathVariable Long carroId){
+        try {
+            Carro carro = carroService.findById(carroId);
+            CarrinhoCompra carrinhoCompra = carrinhoCompraService.findById(carrinhoId);
+
+            return ResponseEntity.ok(carrinhoCompraService.findByCarroId(carrinhoCompra, carro));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar carros no carrinho: " + e.getMessage());
+        }
+    }
+
+    //Remover carro do carrinho de compras
+    @DeleteMapping(value = "/carrinho/{carrinhoId}/{carroId}")
+    public ResponseEntity<String> removerCarroDoCarrinho(@PathVariable Long carrinhoId, @PathVariable Long carroId) {
+        try {
+            CarrinhoCompra carrinhoCompra = carrinhoCompraService.findById(carrinhoId);
+            Carro carro = carroService.findById(carroId);
+
+            carrinhoCompraService.removerCarro(carrinhoCompra, carro);
+            return ResponseEntity.ok("Carro removido do carrinho com sucesso");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao remover carro do carrinho: " + e.getMessage());
+        }
     }
 }

@@ -5,6 +5,8 @@ import org.system.entity.ModeloCarro;
 import java.util.List;
 
 public interface ModeloCarroService {
-    public ModeloCarro save(ModeloCarro modeloCarro);
-    public List<ModeloCarro> findAll();
+    ModeloCarro save(ModeloCarro modeloCarro);
+    List<ModeloCarro> findAll();
+
+    ModeloCarro findById(Long id);
 }

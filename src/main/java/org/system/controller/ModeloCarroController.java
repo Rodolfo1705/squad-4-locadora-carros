@@ -1,9 +1,11 @@
 package org.system.controller;
 
+import com.mysql.cj.xdevapi.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.system.entity.Categoria;
+import org.system.entity.Fabricante;
 import org.system.entity.ModeloCarro;
 import org.system.service.ModeloCarroServiceImpl;
 
@@ -24,6 +26,17 @@ public class ModeloCarroController {
             System.out.println("Não foi possível encontrar modelos de carro!");
         }
         return null;
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ModeloCarro> findById(@PathVariable Long id) {
+        ModeloCarro modeloCarro = modeloCarroService.findById(id);
+
+        if (modeloCarro != null) {
+            return ResponseEntity.ok(modeloCarro);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping(value = "/categoria/{categoria}")

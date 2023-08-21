@@ -91,8 +91,16 @@ public class CarroServiceImpl implements CarroService {
 
     @Override
     public Carro findById(@PathVariable Long id) {
-        Optional<Carro> carroOptional = carroRepository.findById(id);
-        return carroOptional.orElse(null);
+        try {
+            Optional<Carro> carroOptional = carroRepository.findById(id);
+            if (carroOptional.isPresent()) {
+                Carro carro = carroOptional.get();
+                return carro;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return null;
     }
 
     public List<Carro> findByModeloCarro(ModeloCarro modeloCarro){

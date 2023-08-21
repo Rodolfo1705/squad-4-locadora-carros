@@ -5,6 +5,7 @@ import org.system.entity.Fabricante;
 import java.util.List;
 
 public interface FabricanteService {
-    public Fabricante save(Fabricante fabricante);
-    public List<Fabricante> findAll();
+    Fabricante save(Fabricante fabricante);
+    List<Fabricante> findAll();
+    Fabricante findById(Long id);
 }
