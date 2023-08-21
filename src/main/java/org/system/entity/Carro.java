@@ -73,19 +73,4 @@ public class Carro {
 
         return datasOcupadas;
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "\n  id: " + id +
-                "\n placa: " + placa + '\'' +
-                "\n chassi: " + chassi + '\'' +
-                "\n cor: " + cor + '\'' +
-                "\n valorDiaria: " + valorDiaria +
-                "\n acessorios: " + acessorios +
-                "\n modeloCarro: " + modeloCarro +
-                "\n alugueis: " + alugueis +
-                "\n datasOcupadas: " + datasOcupadas +
-                "\n}";
-    }
 }

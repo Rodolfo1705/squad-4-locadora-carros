@@ -4,17 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.system.entity.Aluguel;
-import org.system.entity.Carro;
-import org.system.service.AluguelServiceImpl;
-import org.system.service.CarroServiceImpl;
+import org.system.entity.*;
+import org.system.service.*;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-
-import static java.lang.Integer.parseInt;
 
 @RestController
 @RequestMapping("/alugueis")
@@ -24,7 +19,23 @@ public class AluguelController {
     private AluguelServiceImpl aluguelService;
     @Autowired
     private CarroServiceImpl carroService;
+    @Autowired
+    private MotoristaServiceImpl motoristaService;
 
+    //Consertar método
+    @GetMapping(value = "/{email}")
+    public ResponseEntity<?> findAlugueisMotorista(@PathVariable String email){
+        try {
+            Motorista motorista = motoristaService.findByEmail(email);
+            List<Aluguel> aluguel = aluguelService.findAlugueisMotorista(motorista);
+
+            return ResponseEntity.ok(aluguel);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar carros no carrinho: " + e.getMessage());
+        }
+    }
+
+    //Consertar método
     @GetMapping
     public ResponseEntity<List<Aluguel>> findAll() {
         List<Aluguel> alugueis = aluguelService.findAll();
@@ -51,13 +62,10 @@ public class AluguelController {
     @PostMapping
     public ResponseEntity<String> insert(@RequestBody Aluguel aluguel) {
         try {
-            //informações para teste de bloqueio
-
-            /*LocalDate dataInicio = LocalDate.of(2023, 8, 25);
-            LocalDate dataFinal = LocalDate.of(2023, 8, 29);
-
-            aluguel.setDataEntrega(dataInicio);
-            aluguel.setDataDevolucao(dataFinal);*/
+            //Pegar a data atual
+            LocalDate dataPedido = LocalDate.now();
+            aluguel.setDataPedido(dataPedido);
+            System.out.println(aluguel.getDataPedido());
 
             aluguelService.save(aluguel);
             return ResponseEntity.ok("Aluguel confirmado!");
