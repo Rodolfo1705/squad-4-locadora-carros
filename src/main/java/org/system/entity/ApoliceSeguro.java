@@ -1,5 +1,6 @@
 package org.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class ApoliceSeguro {
     @Column(name = "protecaoRoubo")
     private boolean protecaoRoubo;
     @OneToOne(mappedBy = "apoliceSeguro")
+    @JsonBackReference
     private Aluguel aluguel;
 
     public ApoliceSeguro(Long id, BigDecimal valorFranquia, boolean protecaoTerceiro, boolean protecaoCausasNaturais, boolean protecaoRoubo) {
@@ -31,20 +33,5 @@ public class ApoliceSeguro {
         this.protecaoTerceiro = protecaoTerceiro;
         this.protecaoCausasNaturais = protecaoCausasNaturais;
         this.protecaoRoubo = protecaoRoubo;
-    }
-
-    public BigDecimal getValorFranquia() {
-        return valorFranquia;
-    }
-    public boolean isProtecaoTerceiro() {
-        return protecaoTerceiro;
-    }
-
-    public boolean isProtecaoCausasNaturais() {
-        return protecaoCausasNaturais;
-    }
-
-    public boolean isProtecaoRoubo() {
-        return protecaoRoubo;
     }
 }

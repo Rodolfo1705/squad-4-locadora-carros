@@ -44,19 +44,19 @@ public class CarroServiceImpl implements CarroService {
     }
 
     private boolean isChassiValido(String chassi) {
-        String chassiPadrão = "^[A-HJ-NPR-Z0-9]{17}$";
+        String chassiPadrao = "^[A-HJ-NPR-Z0-9]{17}$";
 
-        return chassi.toUpperCase().matches(chassiPadrão);
+        return chassi.toUpperCase().matches(chassiPadrao);
     }
 
     private boolean isPlacaComumValida(String placa) {
-        String placaPadrão = "^[A-Z]{3}-?\\d{4}$";
-        return placa.toUpperCase().matches(placaPadrão);
+        String placaPadrao = "^[A-Z]{3}-?\\d{4}$";
+        return placa.toUpperCase().matches(placaPadrao);
     }
 
     private boolean isPlacaMercosulValida(String placa) {
-        String placaPadrão = "^[A-Z]{3}\\d[A-Z]{2}\\d{2}$";
-        return placa.toUpperCase().matches(placaPadrão);
+        String placaPadrao = "^[A-Z]{3}\\d[A-Z]{2}\\d{2}$";
+        return placa.toUpperCase().matches(placaPadrao);
     }
 
     public void saveNewDates(Carro carro){
