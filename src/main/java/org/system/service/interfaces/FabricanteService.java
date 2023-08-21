@@ -8,4 +8,5 @@ public interface FabricanteService {
     Fabricante save(Fabricante fabricante);
     List<Fabricante> findAll();
     Fabricante findById(Long id);
+    void remove(Long id);
 }

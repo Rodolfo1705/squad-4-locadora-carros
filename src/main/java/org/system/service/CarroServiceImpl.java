@@ -19,6 +19,7 @@ public class CarroServiceImpl implements CarroService {
     @Autowired
     private CarroRepository carroRepository;
 
+    @Override
     public Carro save(Carro carro) {
         try {
             if(!isPlacaMercosulValida(carro.getPlaca()) && !isPlacaComumValida(carro.getPlaca())){
@@ -80,6 +81,7 @@ public class CarroServiceImpl implements CarroService {
         return carrosDisponiveis;
     }
 
+    @Override
     public List<Carro> findAll() {
         try {
             return carroRepository.findAll();
@@ -109,5 +111,14 @@ public class CarroServiceImpl implements CarroService {
 
     public List<Carro> findByAcessorio(Acessorio acessorio) {
         return carroRepository.findByAcessoriosContaining(acessorio);
+    }
+
+    @Override
+    public void remove(Long id){
+        try {
+            carroRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao remover carro: " + e.getMessage());
+        }
     }
 }

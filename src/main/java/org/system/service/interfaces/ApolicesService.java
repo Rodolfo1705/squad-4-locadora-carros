@@ -5,6 +5,8 @@ import org.system.entity.ApoliceSeguro;
 import java.util.List;
 
 public interface ApolicesService {
-    public ApoliceSeguro save(ApoliceSeguro apoliceSeguro);
-    public List<ApoliceSeguro> findAll();
+    ApoliceSeguro findById(Long id);
+    ApoliceSeguro save(ApoliceSeguro apoliceSeguro);
+    List<ApoliceSeguro> findAll();
+    void remove(Long id);
 }

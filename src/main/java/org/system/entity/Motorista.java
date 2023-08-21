@@ -16,6 +16,7 @@ public class Motorista extends Pessoa  {
     @Column(name = "numeroCNH", unique = true)
     private String numeroCNH;
     @OneToOne
+    @JoinColumn(name = "carrinho_compra_id")
     private CarrinhoCompra carrinhoCompra;
     @OneToMany
     private List<Aluguel> alugueis;

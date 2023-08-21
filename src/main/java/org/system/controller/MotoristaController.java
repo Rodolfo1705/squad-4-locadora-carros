@@ -26,9 +26,12 @@ public class MotoristaController {
     @PostMapping
     public ResponseEntity<String> insert(@RequestBody Motorista motorista) {
         try {
+            CarrinhoCompra carrinhoCompra = new CarrinhoCompra();
+            CarrinhoCompra newCarrinhoCompra = carrinhoCompraService.save(carrinhoCompra);
+
+            motorista.setCarrinhoCompra(newCarrinhoCompra);
             Motorista newMotorista = motoristaService.save(motorista);
 
-            CarrinhoCompra carrinhoCompra = new CarrinhoCompra();
             carrinhoCompra.setMotorista(newMotorista);
             carrinhoCompraService.save(carrinhoCompra);
 
@@ -44,5 +47,16 @@ public class MotoristaController {
         Motorista motorista = motoristaService.findByEmail(email);
 
        return motorista == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email não encontrado!") : ResponseEntity.ok(motorista);
+    }
+
+    @DeleteMapping("/{motoristaId}")
+    public ResponseEntity<String> removeMotorista(@PathVariable Long motoristaId) {
+        try {
+            motoristaService.remove(motoristaId);
+            return ResponseEntity.ok("Motorista removido com sucesso");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao remover motorista: " + e.getMessage());
+        }
     }
 }

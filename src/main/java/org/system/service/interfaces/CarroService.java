@@ -5,7 +5,8 @@ import org.system.entity.Carro;
 import java.util.List;
 
 public interface CarroService {
-    public Carro save(Carro carro);
-    public List<Carro> findAll();
-    public Carro findById(Long id);
+    Carro save(Carro carro);
+    List<Carro> findAll();
+    Carro findById(Long id);
+    void remove(Long id);
 }

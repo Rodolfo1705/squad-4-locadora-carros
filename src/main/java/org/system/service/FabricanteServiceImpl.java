@@ -14,6 +14,7 @@ import java.util.Optional;
 public class FabricanteServiceImpl implements FabricanteService {
     @Autowired
     private FabricanteRepository fabricanteRepository;
+
     @Override
     public Fabricante save(Fabricante fabricante) {
         try {
@@ -44,5 +45,13 @@ public class FabricanteServiceImpl implements FabricanteService {
             throw new RuntimeException(e.getMessage());
         }
         return null;
+    }
+    @Override
+    public void remove(Long id){
+        try {
+            fabricanteRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao remover fabricante: " + e.getMessage());
+        }
     }
 }
