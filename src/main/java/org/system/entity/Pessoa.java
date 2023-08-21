@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -22,7 +23,7 @@ public class Pessoa {
     protected String nome;
     @Column(name = "dataNascimento")
     @Temporal(TemporalType.DATE)
-    protected Date dataNascimento;
+    protected LocalDate dataNascimento;
     @Column(name = "cpf", unique = true)
     protected String cpf;
     @Column(name = "sexo")
@@ -31,7 +32,7 @@ public class Pessoa {
     @Column(name = "email", unique = true)
     protected String email;
 
-    public Pessoa(String nome, Date dataNascimento, String cpf, Sexo sexo, String email) {
+    public Pessoa(String nome, LocalDate dataNascimento, String cpf, Sexo sexo, String email) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;

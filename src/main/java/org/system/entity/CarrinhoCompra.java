@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,11 +21,11 @@ public class CarrinhoCompra {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "carrinhoCompra_carro",
+            name = "carrinho_compra_carro",
             joinColumns = @JoinColumn(name = "carrinho_id"),
             inverseJoinColumns = @JoinColumn(name = "carro_id")
     )
-    private List<Carro> listaCarros;
+    private List<Carro> listaCarros = new ArrayList<>();
 
     public CarrinhoCompra(Long id, Motorista motorista, List<Carro> listaCarros) {
         this.id = id;

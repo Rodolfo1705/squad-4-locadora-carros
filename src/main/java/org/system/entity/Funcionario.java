@@ -5,6 +5,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 @Data
 @Entity
@@ -13,7 +14,7 @@ public class Funcionario extends Pessoa {
     @Column(name = "matricula", unique = true)
     private String matricula;
 
-    public Funcionario(String nome, Date dataNascimento, String cpf, Sexo sexo, String email) {
+    public Funcionario(String nome, LocalDate dataNascimento, String cpf, Sexo sexo, String email) {
         super(nome, dataNascimento, cpf, sexo, email);
     }
 }

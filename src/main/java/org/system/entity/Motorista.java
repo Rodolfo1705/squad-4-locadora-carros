@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,7 +21,7 @@ public class Motorista extends Pessoa  {
     @OneToOne
     private CarrinhoCompra carrinhoCompra;
 
-    public Motorista(String nome, Date dataNascimento, String cpf, Sexo sexo, String email, String numeroCNH, CarrinhoCompra carrinhoCompra) {
+    public Motorista(String nome, LocalDate dataNascimento, String cpf, Sexo sexo, String email, String numeroCNH, CarrinhoCompra carrinhoCompra) {
         super(nome, dataNascimento, cpf, sexo, email);
         this.numeroCNH = numeroCNH;
         this.carrinhoCompra = carrinhoCompra;

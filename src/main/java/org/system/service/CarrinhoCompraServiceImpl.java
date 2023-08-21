@@ -8,6 +8,7 @@ import org.system.entity.Motorista;
 import org.system.repository.CarrinhoCompraRepository;
 import org.system.service.interfaces.CarrinhoCompraService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,22 +34,19 @@ public class CarrinhoCompraServiceImpl implements CarrinhoCompraService {
 
     public void addCarros(CarrinhoCompra carrinhoCompra, Carro carro){
         try{
-            List<Carro> listaCarros = carrinhoCompra.getListaCarros();
-            listaCarros.add(carro);
+            if (carrinhoCompra.getListaCarros().isEmpty()) {
+                List<Carro> listaCarros = new ArrayList<>();
+                listaCarros.add(carro);
+            } else {
+                List<Carro> listaCarros = carrinhoCompra.getListaCarros();
+                listaCarros.add(carro);
+            }
 
             carrinhoCompraRepository.save(carrinhoCompra);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
-
-    /**public CarrinhoCompra findByMotorista(Long id) {
-        try{
-            return carrinhoCompraRepository.findByMotorista(id);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-    }*/
 
     public CarrinhoCompra findByMotorista(Motorista motorista) {
         try{

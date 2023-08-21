@@ -27,7 +27,6 @@
             try {
                 Carro carro = aluguel.getCarro();
                 carro.bloquearDatas(aluguel.getDataEntrega(), aluguel.getDataDevolucao());
-                System.out.println(carro.getDatasOcupadas());
 
                 carroService.saveNewDates(carro);
                 return aluguelRepository.save(aluguel);
