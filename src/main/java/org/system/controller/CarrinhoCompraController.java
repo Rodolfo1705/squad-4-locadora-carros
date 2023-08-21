@@ -4,17 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.system.entity.CarrinhoCompra;
-import org.system.entity.Carro;
-import org.system.entity.Fabricante;
-import org.system.entity.Motorista;
-import org.system.service.CarrinhoCompraServiceImpl;
-import org.system.service.CarroServiceImpl;
-import org.system.service.ModeloCarroServiceImpl;
-import org.system.service.MotoristaServiceImpl;
+import org.system.entity.*;
+import org.system.entity.dto.AdicionarCarrinhoDTO;
+import org.system.entity.dto.DetalhesReservaDTO;
+import org.system.service.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/carrinhos-compra")
@@ -27,6 +24,7 @@ public class CarrinhoCompraController {
     @Autowired
     private CarroServiceImpl carroService;
 
+    //Consertar Método
     @GetMapping
     public ResponseEntity<?> findAll(){
         try {
@@ -52,12 +50,15 @@ public class CarrinhoCompraController {
     }
 
     //Método que pega o email do motorista logado e o id do carro que o cliente quer e adiciona no carrinho
-    /*
-    @PostMapping
-    public ResponseEntity<String> save(@RequestBody Carro carro, @RequestParam String email){
+    @PostMapping(value = "/adicionar-carro")
+    public ResponseEntity<String> save(@RequestBody AdicionarCarrinhoDTO adicionarCarrinhoDTO){
         try {
+            String email = adicionarCarrinhoDTO.getEmail();
+            Long id = adicionarCarrinhoDTO.getId();
+
             Motorista motorista = motoristaService.findByEmail(email);
             CarrinhoCompra carrinhoCompra = carrinhoCompraService.findByMotorista(motorista);
+            Carro carro = carroService.findById(id);
 
             carrinhoCompraService.addCarros(carrinhoCompra, carro);
             return ResponseEntity.ok("Carro adicionado no carrinho com sucesso");
@@ -65,5 +66,12 @@ public class CarrinhoCompraController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar carro no carrinho de compras: " + e.getMessage());
         }
     }
-     */
+
+
+    //Na hora da 1ª confirmação, as informações de motorista logado, carro e as datas da reserva são passadas novamente para
+    // o sistema. Ao recarregar a página, os detalhes serão mostrados junto as informações do carro para a 2ª confirmação
+    @GetMapping(value = "/detalhes-reserva")
+    public ResponseEntity<?> listarCarrosDisponiveis(@RequestBody DetalhesReservaDTO detalhesReservaDTO) {
+        return ResponseEntity.ok(detalhesReservaDTO);
+    }
 }
