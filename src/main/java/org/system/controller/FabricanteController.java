@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.system.entity.Carro;
 import org.system.entity.Fabricante;
 import org.system.service.interfaces.FabricanteService;
 
@@ -24,6 +25,17 @@ public class FabricanteController {
             String errorMessage = "Não foi possível encontrar registros de fabricantes!";
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Fabricante> findById(@PathVariable Long id) {
+        Fabricante fabricante = fabricanteService.findById(id);
+
+        if (fabricante != null) {
+            return ResponseEntity.ok(fabricante);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping

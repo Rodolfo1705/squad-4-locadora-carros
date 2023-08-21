@@ -13,12 +13,13 @@ public class DetalhesReservaDTO implements Serializable {
     private String dataInicio;
     private String dataDevolucao;
     private Carro carro;
+    private String emailMotorista;
     private Motorista motorista;
 
-    public DetalhesReservaDTO(String dataInicio, String dataDevolucao, Carro carro, Motorista motorista) {
+    public DetalhesReservaDTO(String dataInicio, String dataDevolucao, Carro carro, String emailMotorista) {
         this.dataInicio = dataInicio;
         this.dataDevolucao = dataDevolucao;
         this.carro = carro;
-        this.motorista = motorista;
+        this.emailMotorista = emailMotorista;
     }
 }

@@ -5,11 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.system.entity.Carro;
 import org.system.entity.Categoria;
+import org.system.entity.Fabricante;
 import org.system.entity.ModeloCarro;
 import org.system.repository.ModeloCarroRepository;
 import org.system.service.interfaces.ModeloCarroService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ModeloCarroServiceImpl implements ModeloCarroService {
@@ -41,5 +43,19 @@ public class ModeloCarroServiceImpl implements ModeloCarroService {
         } catch (Exception e){
             return null;
         }
+    }
+
+    @Override
+    public ModeloCarro findById(Long id) {
+        try{
+            Optional<ModeloCarro> modeloCarroOptional = modeloCarroRepository.findById(id);
+            if (modeloCarroOptional.isPresent()){
+                ModeloCarro modeloCarro = modeloCarroOptional.get();
+                return modeloCarro;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return null;
     }
 }

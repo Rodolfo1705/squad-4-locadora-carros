@@ -8,15 +8,14 @@ import org.system.entity.Motorista;
 import org.system.repository.CarrinhoCompraRepository;
 import org.system.service.interfaces.CarrinhoCompraService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CarrinhoCompraServiceImpl implements CarrinhoCompraService {
     @Autowired
     private CarrinhoCompraRepository carrinhoCompraRepository;
-
+    @Autowired
+    private CarroServiceImpl carroService;
     @Override
     public List<CarrinhoCompra> findAll() {
         List<CarrinhoCompra> carrinho = carrinhoCompraRepository.findAll();
@@ -34,13 +33,9 @@ public class CarrinhoCompraServiceImpl implements CarrinhoCompraService {
 
     public void addCarros(CarrinhoCompra carrinhoCompra, Carro carro){
         try{
-            if (carrinhoCompra.getListaCarros().isEmpty()) {
-                List<Carro> listaCarros = new ArrayList<>();
-                listaCarros.add(carro);
-            } else {
-                List<Carro> listaCarros = carrinhoCompra.getListaCarros();
-                listaCarros.add(carro);
-            }
+            List<Carro> listaCarros = carrinhoCompra.getListaCarros();
+            listaCarros.add(carro);
+            carrinhoCompra.setListaCarros(listaCarros);
 
             carrinhoCompraRepository.save(carrinhoCompra);
         } catch (Exception e) {
@@ -54,5 +49,62 @@ public class CarrinhoCompraServiceImpl implements CarrinhoCompraService {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    public CarrinhoCompra findById(Long carrinhoId) {
+        try{
+            Optional<CarrinhoCompra> carrinhoOptional = carrinhoCompraRepository.findById(carrinhoId);
+            if (carrinhoOptional.isPresent()){
+                CarrinhoCompra carrinhoCompra = carrinhoOptional.get();
+                return carrinhoCompra;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return null;
+    }
+
+    public Carro findByCarroId(CarrinhoCompra carrinhoCompra, Carro carro){
+        Long carroId = carro.getId();
+
+        List<Carro> listaCarros = carrinhoCompra.getListaCarros();
+        for (Carro carroCarrinho : listaCarros) {
+            if (carroCarrinho.getId().equals(carroId)) {
+                return carroCarrinho;
+            }
+        }
+
+        throw new NoSuchElementException("Carro não encontrado no carrinho");
+    }
+
+    @Override
+    public void removerCarro(CarrinhoCompra carrinhoCompra, Carro carro) {
+        List<Carro> listaCarros = carrinhoCompra.getListaCarros();
+        Iterator<Carro> iterator = listaCarros.iterator();
+
+        while (iterator.hasNext()) {
+            Carro carroCarrinho = iterator.next();
+            if (carroCarrinho.getId().equals(carro.getId())) {
+                iterator.remove();
+                break;
+            }
+        }
+
+        save(carrinhoCompra);
+    }
+
+    public List<Carro> getCarrosByCarrinhoId(Long carrinhoId) {
+        CarrinhoCompra carrinho = carrinhoCompraRepository.findById(carrinhoId)
+                .orElse(null);
+
+        if (carrinho == null) {
+            return Collections.emptyList();
+        }
+
+        return carrinho.getListaCarros();
+    }
+
+    public void removeCarro(CarrinhoCompra carrinhoCompra, Carro carro){
+
     }
 }
