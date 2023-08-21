@@ -22,7 +22,6 @@ public class AluguelController {
     @Autowired
     private MotoristaServiceImpl motoristaService;
 
-    //Consertar método
     @GetMapping(value = "/{email}")
     public ResponseEntity<?> findAlugueisMotorista(@PathVariable String email){
         try {
@@ -35,7 +34,6 @@ public class AluguelController {
         }
     }
 
-    //Consertar método
     @GetMapping
     public ResponseEntity<List<Aluguel>> findAll() {
         List<Aluguel> alugueis = aluguelService.findAll();

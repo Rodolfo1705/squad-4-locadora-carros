@@ -1,5 +1,6 @@
 package org.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
