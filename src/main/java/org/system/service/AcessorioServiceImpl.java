@@ -24,8 +24,7 @@ public class AcessorioServiceImpl implements AcessorioService {
         try{
             Optional<Acessorio> acessorioOptional = acessorioRepository.findById(id);
             if (acessorioOptional.isPresent()){
-                Acessorio acessorio = acessorioOptional.get();
-                return acessorio;
+                return acessorioOptional.get();
             }
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -44,6 +43,10 @@ public class AcessorioServiceImpl implements AcessorioService {
 
     @Override
     public void remove(Long id){
+        if(!acessorioRepository.existsById(id)){
+            throw new IllegalArgumentException();
+        }
+
         try {
             acessorioRepository.deleteById(id);
         } catch (Exception e) {
