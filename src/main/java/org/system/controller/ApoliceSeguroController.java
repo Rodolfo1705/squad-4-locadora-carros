@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.system.entity.Acessorio;
 import org.system.entity.ApoliceSeguro;
+import org.system.entity.Carro;
 import org.system.entity.ModeloCarro;
 import org.system.service.ApolicesServiceImpl;
 
@@ -27,6 +28,17 @@ public class ApoliceSeguroController {
         return null;
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ApoliceSeguro> findById(@PathVariable Long id) {
+        ApoliceSeguro apoliceSeguro = apolicesService.findById(id);
+
+        if (apoliceSeguro == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(apoliceSeguro);
+    }
+
     @PostMapping
     public ResponseEntity<String> insert(@RequestBody ApoliceSeguro apoliceSeguro) {
         try {
@@ -35,6 +47,19 @@ public class ApoliceSeguroController {
         } catch (RuntimeException  e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao cadastrar apólice de seguro: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        try{
+            apolicesService.remove(id);
+            return ResponseEntity.noContent().build();
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.notFound().build();
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

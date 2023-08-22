@@ -103,4 +103,17 @@ public class CarroController {
                     .body("Erro ao cadastrar carro: " + e.getMessage());
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        try{
+            carroService.remove(id);
+            return ResponseEntity.noContent().build();
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.notFound().build();
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }

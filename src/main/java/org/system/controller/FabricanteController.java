@@ -43,4 +43,17 @@ public class FabricanteController {
         Fabricante newFabricante = fabricanteService.save(fabricante);
         return ResponseEntity.ok("Fabricante cadastrado com sucesso!");
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        try{
+            fabricanteService.remove(id);
+            return ResponseEntity.noContent().build();
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.notFound().build();
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }

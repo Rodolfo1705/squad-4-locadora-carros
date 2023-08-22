@@ -54,4 +54,17 @@ public class ModeloCarroController {
         ModeloCarro newModeloCarro = modeloCarroService.save(modeloCarro);
         return ResponseEntity.ok("Modelo de carro cadastrado com sucesso!");
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        try{
+            modeloCarroService.remove(id);
+            return ResponseEntity.noContent().build();
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.notFound().build();
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }
