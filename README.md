@@ -41,6 +41,9 @@
 
   - <p align="justify"><b>Swagger:</b> Por fim, o Swagger (OpenAPI) viabilizou a documentação clara e detalhada da API, auxiliando usuários e desenvolvedores a entender e interagir com a a mesma de forma eficaz.</p>
 
+## Diagrama de Classe
+<img src="/img/LocadoraDeVeículos.png">
+
 <hr>
 
 ## Guia de Utilização
